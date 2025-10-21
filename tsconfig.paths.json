@@ -4,6 +4,7 @@
     "paths": {
       "@/*": ["*"],
       "@events/*": ["events/*"],
+      "@events": ["events"],
       "@core/*": ["core/*"],
       "@constants/*": ["constants/*"],
       "@configs/*": ["configs/*"],
