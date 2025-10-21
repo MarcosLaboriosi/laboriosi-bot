@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"],
+      "@events/*": ["events/*"],
+      "@core/*": ["core/*"],
+      "@constants/*": ["constants/*"],
+      "@configs/*": ["configs/*"],
+      "@configs": ["configs/index"],
+      "@utils/*": ["utils/*"],
+      "@utils": ["utils"],
+      "@types/*": ["types/*"],
+      "@types": ["types"]
+    }
+  }
+}
