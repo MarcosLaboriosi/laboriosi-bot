@@ -12,11 +12,11 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.ts",
   "scripts": {
-    "dev": "tsx -r tsconfig-paths/register src/app/index.ts",
-    "build": "tsc -p tsconfig.json",
+    "dev": "tsx --tsconfig tsconfig.json -r tsconfig-paths/register src/app/index.ts",
+    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "start": "node -r tsconfig-paths/register dist/app/index.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."
