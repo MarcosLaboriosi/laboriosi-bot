@@ -13,5 +13,6 @@ declare namespace NodeJS {
     DPS_ROLE_ID: string;
     RULES_CHANNEL_ID: string;
     WELCOME_CHANNEL_ID: string;
+    WHATSAPP_CHANNEL_ID: string;
   }
 }

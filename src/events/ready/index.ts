@@ -5,11 +5,14 @@ import {
   ButtonBuilder,
 } from "@types";
 import client from "@core/client";
-import rolesOptionsComponent from "@components/rolesOptionsComponent";
-import { rolesEmbed, guildRulesEmbed } from "@embeds";
+import { rolesOptionsComponent, WhatsAppComponent } from "@components";
+import { rolesEmbed, guildRulesEmbed, whatsAppLinkEmbed } from "@embeds";
 
-const { ROLES_CHANNEL_ID: rolesChannelId, RULES_CHANNEL_ID: rulesChannelId } =
-  process.env;
+const {
+  ROLES_CHANNEL_ID: rolesChannelId,
+  RULES_CHANNEL_ID: rulesChannelId,
+  WHATSAPP_CHANNEL_ID: whatsAppChannelId,
+} = process.env;
 
 const fetchTextChannelAndFixMessage = async (
   channelId: string,
@@ -42,4 +45,10 @@ export default async () => {
   );
 
   fetchTextChannelAndFixMessage(rulesChannelId, guildRulesEmbed);
+
+  fetchTextChannelAndFixMessage(
+    whatsAppChannelId,
+    whatsAppLinkEmbed,
+    WhatsAppComponent
+  );
 };
