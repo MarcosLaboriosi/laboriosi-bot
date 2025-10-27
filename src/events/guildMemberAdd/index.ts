@@ -1,11 +1,8 @@
 import { GuildMember } from "@types";
-
-const { MEMBER_ROLE_ID: memberRoleId, GUILD_ID: guildId } = process.env;
+import addMemberRole from "./addMemberRole";
+import welcomeMessage from "./welcomeMessage";
 
 export default async (member: GuildMember) => {
-  try {
-    if (member.guild.id === guildId) member.roles.add(memberRoleId);
-  } catch (error) {
-    console.log(error);
-  }
+  addMemberRole(member);
+  welcomeMessage(member);
 };

@@ -12,5 +12,6 @@ declare namespace NodeJS {
     TANK_ROLE_ID: string;
     DPS_ROLE_ID: string;
     RULES_CHANNEL_ID: string;
+    WELCOME_CHANNEL_ID: string;
   }
 }
