@@ -13,6 +13,9 @@ declare namespace NodeJS {
     DPS_ROLE_ID: string;
     RULES_CHANNEL_ID: string;
     WELCOME_CHANNEL_ID: string;
+    SOCIAL_CHAT_CHANNEL_ID: string;
     WHATSAPP_CHANNEL_ID: string;
+    STREAMER_ROLE_ID: string;
+    FOLLOWER_ROLE_ID: string;
   }
 }
