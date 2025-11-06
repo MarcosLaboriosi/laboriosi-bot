@@ -3,10 +3,11 @@ import {
   EmbedBuilder,
   ActionRowBuilder,
   ButtonBuilder,
-} from "@types";
-import client from "@core/client";
-import { rolesOptionsComponent, WhatsAppComponent } from "@components";
-import { rolesEmbed, guildRulesEmbed, whatsAppLinkEmbed } from "@embeds";
+} from '@types';
+import client from '@core/client';
+import { rolesOptionsComponent, WhatsAppComponent } from '@components';
+import { rolesEmbed, guildRulesEmbed, whatsAppLinkEmbed } from '@embeds';
+import { startTwitchPolling } from '@/twitchPoller';
 
 const {
   ROLES_CHANNEL_ID: rolesChannelId,
@@ -38,6 +39,8 @@ const fetchTextChannelAndFixMessage = async (
 };
 
 export default async () => {
+  startTwitchPolling(client);
+
   fetchTextChannelAndFixMessage(
     rolesChannelId,
     rolesEmbed,

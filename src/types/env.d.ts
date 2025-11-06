@@ -17,5 +17,8 @@ declare namespace NodeJS {
     WHATSAPP_CHANNEL_ID: string;
     STREAMER_ROLE_ID: string;
     FOLLOWER_ROLE_ID: string;
+    TWITCH_CLIENT_ID: string;
+    TWITCH_CLIENT_SECRET: string;
+    POLL_INTERVAL_MS: string;
   }
 }

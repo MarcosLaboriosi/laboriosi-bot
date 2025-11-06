@@ -1,15 +1,15 @@
 import { EmbedBuilder } from 'discord.js';
 
-export default (username: string, channel: string) =>
+export default (
+  username: string,
+  url: string,
+  iconURL: string,
+  title: string
+) =>
   new EmbedBuilder()
-    .setTitle('🔴 Live no ar!')
-    .setColor('#2ECC71')
-    .setDescription(
-      [
-        `${username} acabou de abrir live!`,
-        '',
-        `[twitch.tv/${channel}](https://twitch.tv/${channel})`,
-      ].join('\n')
-    )
+    .setTitle(`🟣 ${username} acabou de abrir live!`)
+    .setAuthor({ name: username, iconURL })
+    .setColor('#9146FF')
+    .setDescription([title, '', `${url}`].join('\n'))
     .setTimestamp()
     .setFooter({ text: 'EntraNaCall' });

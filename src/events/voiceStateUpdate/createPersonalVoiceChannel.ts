@@ -21,7 +21,9 @@ export async function createPersonalVoiceChannel(
   try {
     const memberId = newState?.member?.id;
     const guild = newState.guild;
-    const streamer = streamers.find((streamer) => streamer.id === memberId);
+    const streamer = streamers.find(
+      (streamer) => streamer.discordId === memberId
+    );
     const socialChannel = guild.channels.cache.get(socialChatChannelId);
 
     const isJoiningCreateChannelVoiceChannel =
@@ -79,15 +81,6 @@ export async function createPersonalVoiceChannel(
         await rest.put(`/channels/${createdChannel.id}/voice-status`, {
           body: { status: `Live on twitch.tv/${streamer.channel}` },
         });
-        if (socialChannel && socialChannel.isTextBased()) {
-          await socialChannel.send({
-            content: `<@&${followerRoleId}>`,
-            embeds: [
-              liveMessageEmbed(newState.member.displayName, streamer.channel),
-            ],
-            components: [liveMessageComponent(streamer.channel)],
-          });
-        }
       }
 
       await creator.voice.setChannel(createdChannel.id);

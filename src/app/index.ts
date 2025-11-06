@@ -1,16 +1,16 @@
-import "dotenv/config";
-import client from "@core/client";
+import 'dotenv/config';
+import client from '@core/client';
 import {
   voiceStateUpdate,
   guildMemberAdd,
   ready,
   interactionCreate,
-} from "@events";
+} from '@events';
 
-client.once("ready", ready);
+client.once('ready', ready);
 
-client.on("guildMemberAdd", guildMemberAdd);
-client.on("voiceStateUpdate", voiceStateUpdate);
-client.on("interactionCreate", interactionCreate);
+client.on('guildMemberAdd', guildMemberAdd);
+client.on('voiceStateUpdate', voiceStateUpdate);
+client.on('interactionCreate', interactionCreate);
 
 client.login(process.env.CLIENT_TOKEN);
