@@ -48,9 +48,7 @@ export async function createPersonalVoiceChannel(
       const creatorName = sanitizeToTextPattern(creator.displayName);
 
       const createdChannel = await newState.guild.channels.create({
-        name: `${streamer ? '🟣' : randomEmoji}｜${
-          streamer ? 'live' : 'sala'
-        } do ${creatorName}`,
+        name: `${randomEmoji}｜sala do ${creatorName}`,
         type: ChannelType.GuildVoice,
         parent: newState.channel.parent,
         permissionOverwrites: [
