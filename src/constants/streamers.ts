@@ -9,9 +9,10 @@ export default [
     discordId: '122674375001374722',
     twitchId: '777816520',
   },
+
   {
-    channel: 'by_hori',
-    discordId: '229730422190243850',
-    twitchId: '659977888',
+    channel: 'vitaokk_',
+    discordId: '701943644059336756',
+    twitchId: '229388698',
   },
 ];

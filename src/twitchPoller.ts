@@ -8,7 +8,6 @@ import { liveMessageComponent } from './components';
 const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, POLL_INTERVAL_MS } =
   process.env;
 
-// ---------- App Token com auto-refresh ----------
 let appToken: string | null = null;
 let tokenExpiresAt = 0;
 
@@ -31,7 +30,6 @@ async function getAppToken(): Promise<string> {
   return appToken!;
 }
 
-// ---------- Helpers de API ----------
 async function helixGet<T>(
   url: string,
   params?: Record<string, any>
@@ -70,20 +68,15 @@ type UsersRow = {
   profile_image_url: string;
 };
 
-// ---------- Cache em memória ----------
-const isLive = new Map<string, boolean>(); // user_id -> online?
-const lastNotifiedAt = new Map<string, number>(); // user_id -> epoch ms
-const avatarCache = new Map<string, string>(); // user_id -> url
+const isLive = new Map<string, boolean>();
+const lastNotifiedAt = new Map<string, number>();
+const avatarCache = new Map<string, string>();
 
-// evita flood (ex.: se stream cai/volta rápido)
 const MIN_NOTIFY_INTERVAL_MS = 5 * 60 * 1000;
 
-// ---------- Coleta estado atual ----------
 async function fetchLiveStatus(userIds: string[]) {
-  // Helix aceita múltiplos user_id
   const params: Record<string, any> = {};
   userIds.forEach((id, i) => (params[`user_id`] = undefined)); // só pra type
-  // axios lida melhor com arrays assim:
   const url = 'https://api.twitch.tv/helix/streams';
   const { data } = await axios.get(url, {
     params: { user_id: userIds },
@@ -93,7 +86,6 @@ async function fetchLiveStatus(userIds: string[]) {
     },
     timeout: 10_000,
     paramsSerializer: (p) => {
-      // user_id=1&user_id=2...
       const ids = (p.user_id as string[])
         .map((v) => `user_id=${encodeURIComponent(v)}`)
         .join('&');
@@ -122,7 +114,6 @@ async function getProfileImageUrl(userId: string): Promise<string | null> {
   return url;
 }
 
-// ---------- Loop principal ----------
 export function startTwitchPolling(discordClient: Client) {
   const userIds = streamers.map((s) => s.twitchId);
 
@@ -135,12 +126,10 @@ export function startTwitchPolling(discordClient: Client) {
         const currentlyLive = !!row;
         const wasLive = isLive.get(s.twitchId) || false;
 
-        // Mudou para online?
         if (currentlyLive && !wasLive) {
           const now = Date.now();
           const last = lastNotifiedAt.get(s.twitchId) || 0;
           if (now - last > MIN_NOTIFY_INTERVAL_MS) {
-            // monta embed
             const avatar = await getProfileImageUrl(s.twitchId);
             const title = row!.title || 'Está ao vivo!';
             const url = `https://twitch.tv/${s.channel}`;
@@ -163,13 +152,11 @@ export function startTwitchPolling(discordClient: Client) {
           }
         }
 
-        // Atualiza estado
         isLive.set(s.twitchId, currentlyLive);
       }
     } catch (e: any) {
       const status = e?.response?.status;
       if (status === 401) {
-        // token expirado/invalidado — força refresh na próxima
         appToken = null;
         tokenExpiresAt = 0;
         console.warn(
@@ -188,12 +175,11 @@ export function startTwitchPolling(discordClient: Client) {
     }
   };
 
-  // primeira execução já
   tick();
 
   const base = parseInt(String(POLL_INTERVAL_MS), 10) || 60000;
+
   setInterval(() => {
-    // jitter leve para não “bater cravado” sempre
     const jitter = Math.floor(Math.random() * 3000);
     setTimeout(tick, jitter);
   }, base);
